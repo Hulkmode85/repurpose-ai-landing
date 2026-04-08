@@ -1,223 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RepurposeAI - Turn One Piece Into 13 | AI Content Repurposing</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0f; color: #e0e0e8; line-height: 1.6; }
-        a { text-decoration: none; color: inherit; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RepurposeAI - Turn One Piece Into 13 | AI Content Repurposing</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--surface:#111118;--card:#16161f;--border:rgba(255,255,255,0.06);--primary:#6c5ce7;--primary-light:#a29bfe;--accent:#e040fb;--text:#f0f0f5;--muted:#a0a0b8;--dim:#6b6b80;--green:#22c55e;--glow:0 0 80px rgba(108,92,231,0.15)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; max-width: 1200px; margin: 0 auto; }
-        .logo { font-size: 1.5rem; font-weight: 700; color: #fff; }
-        .logo span { color: #6c5ce7; }
-        nav a.cta-sm { background: #6c5ce7; color: #fff; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600; transition: background 0.2s; }
-        nav a.cta-sm:hover { background: #5a4bd1; }
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+.reveal-delay-5{transition-delay:0.5s}
 
-        .hero { text-align: center; padding: 6rem 5% 4rem; max-width: 900px; margin: 0 auto; }
-        .hero h1 { font-size: 3.2rem; font-weight: 800; line-height: 1.15; color: #fff; margin-bottom: 1.2rem; }
-        .hero h1 span { background: linear-gradient(135deg, #6c5ce7, #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { font-size: 1.25rem; color: #9a9ab0; max-width: 650px; margin: 0 auto 2rem; }
-        .cta { display: inline-block; background: #6c5ce7; color: #fff; padding: 1rem 2.5rem; border-radius: 10px; font-size: 1.1rem; font-weight: 700; transition: transform 0.2s, background 0.2s; }
-        .cta:hover { background: #5a4bd1; transform: translateY(-2px); }
+/* Nav */
+nav{padding:20px 0;border-bottom:1px solid var(--border);backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.85)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.5rem;font-weight:800;color:#fff}
+.logo span{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{color:var(--muted);font-size:0.9rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:#fff}
+.cta-sm{background:var(--primary)!important;color:#fff!important;padding:10px 24px;border-radius:10px;font-weight:600;transition:transform 0.2s,box-shadow 0.2s}
+.cta-sm:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(108,92,231,0.4)}
 
-        .formats { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
-        .formats .tag { background: #16161f; border: 1px solid #2a2a3d; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; color: #a29bfe; }
+/* Hero */
+.hero{padding:120px 0 100px;text-align:center;position:relative;background:radial-gradient(ellipse at top,rgba(108,92,231,0.08) 0%,transparent 60%)}
+.hero-badge{display:inline-block;background:rgba(108,92,231,0.1);border:1px solid rgba(108,92,231,0.2);padding:8px 20px;border-radius:50px;font-size:0.85rem;color:var(--primary-light);margin-bottom:24px;animation:fadeUp 0.6s ease}
+.hero h1{font-size:3.5rem;font-weight:800;line-height:1.1;margin-bottom:24px;animation:fadeUp 0.6s ease 0.1s both}
+.hero h1 span{background:linear-gradient(135deg,var(--primary),var(--primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.25rem;color:var(--muted);max-width:650px;margin:0 auto 40px;animation:fadeUp 0.6s ease 0.2s both}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--primary),#5a3fd1);color:#fff;padding:16px 40px;border-radius:12px;font-size:1.05rem;font-weight:600;cursor:pointer;border:none;transition:transform 0.2s,box-shadow 0.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(108,92,231,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);box-shadow:none}
+.btn-outline:hover{border-color:var(--primary);background:rgba(108,92,231,0.05);box-shadow:none}
 
-        .how { padding: 5rem 5%; max-width: 1000px; margin: 0 auto; text-align: center; }
-        .how h2 { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 3rem; }
-        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
-        .step { background: #12121b; border: 1px solid #1e1e2e; border-radius: 14px; padding: 2rem; text-align: left; }
-        .step .num { display: inline-block; background: #6c5ce7; color: #fff; width: 36px; height: 36px; border-radius: 50%; text-align: center; line-height: 36px; font-weight: 700; margin-bottom: 1rem; }
-        .step h3 { color: #fff; margin-bottom: 0.5rem; }
-        .step p { color: #8888a0; font-size: 0.95rem; }
+.formats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:48px;animation:fadeUp 0.6s ease 0.4s both}
+.tag{background:var(--card);border:1px solid var(--border);padding:8px 18px;border-radius:50px;font-size:0.85rem;color:var(--primary-light);transition:border-color 0.2s}
+.tag:hover{border-color:var(--primary)}
 
-        .output-section { padding: 4rem 5%; max-width: 1000px; margin: 0 auto; text-align: center; }
-        .output-section h2 { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 1rem; }
-        .output-section .sub { color: #9a9ab0; margin-bottom: 2.5rem; font-size: 1.1rem; }
-        .output-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; }
-        .output-card { background: #12121b; border: 1px solid #1e1e2e; border-radius: 12px; padding: 1.5rem; text-align: left; }
-        .output-card .count { font-size: 2rem; font-weight: 800; color: #6c5ce7; }
-        .output-card h4 { color: #fff; margin: 0.3rem 0; }
-        .output-card p { color: #8888a0; font-size: 0.85rem; }
+/* Section styling */
+.section-label{text-align:center;font-size:0.85rem;font-weight:600;color:var(--primary-light);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
+.section-title{text-align:center;font-size:2.2rem;font-weight:700;margin-bottom:16px}
+.section-sub{text-align:center;color:var(--muted);margin-bottom:56px;font-size:1.05rem}
 
-        .pricing { padding: 5rem 5%; max-width: 1100px; margin: 0 auto; text-align: center; }
-        .pricing h2 { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
-        .pricing .sub { color: #9a9ab0; margin-bottom: 3rem; font-size: 1.1rem; }
-        .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .plan { background: #12121b; border: 1px solid #1e1e2e; border-radius: 16px; padding: 2.5rem 2rem; text-align: left; position: relative; transition: border-color 0.2s; }
-        .plan:hover { border-color: #6c5ce7; }
-        .plan.featured { border-color: #6c5ce7; }
-        .plan.featured::before { content: "MOST POPULAR"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #6c5ce7; color: #fff; padding: 0.25rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
-        .plan h3 { color: #fff; font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .plan .price { font-size: 2.5rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem; }
-        .plan .price span { font-size: 1rem; font-weight: 400; color: #8888a0; }
-        .plan .desc { color: #8888a0; margin-bottom: 1.5rem; font-size: 0.95rem; }
-        .plan ul { list-style: none; margin-bottom: 2rem; }
-        .plan ul li { padding: 0.4rem 0; color: #c0c0d0; font-size: 0.95rem; }
-        .plan ul li::before { content: "\2713"; color: #6c5ce7; margin-right: 0.6rem; font-weight: 700; }
-        .plan .btn { display: block; text-align: center; background: #1e1e2e; color: #fff; padding: 0.85rem; border-radius: 10px; font-weight: 600; transition: background 0.2s; }
-        .plan .btn:hover, .plan.featured .btn { background: #6c5ce7; }
+/* How */
+.how{padding:100px 0;background:var(--surface)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
+.step{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px;text-align:left;transition:transform 0.3s,border-color 0.3s}
+.step:hover{transform:translateY(-4px);border-color:rgba(108,92,231,0.3)}
+.step .num{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--primary),#5a3fd1);color:#fff;font-weight:700;margin-bottom:16px}
+.step h3{color:#fff;margin-bottom:8px;font-weight:600}
+.step p{color:var(--muted);font-size:0.95rem;line-height:1.7}
 
-        .faq { padding: 4rem 5%; max-width: 750px; margin: 0 auto; }
-        .faq h2 { text-align: center; font-size: 2rem; color: #fff; margin-bottom: 2rem; }
-        .faq-item { border-bottom: 1px solid #1e1e2e; padding: 1.2rem 0; }
-        .faq-item h4 { color: #fff; cursor: pointer; }
-        .faq-item p { color: #8888a0; margin-top: 0.5rem; font-size: 0.95rem; }
+/* Output grid */
+.output-section{padding:100px 0}
+.output-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.output-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:left;transition:transform 0.3s,border-color 0.3s}
+.output-card:hover{transform:translateY(-4px);border-color:rgba(108,92,231,0.3)}
+.output-card .count{font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.output-card h4{color:#fff;margin:6px 0;font-weight:600}
+.output-card p{color:var(--muted);font-size:0.85rem;line-height:1.6}
 
-        footer { text-align: center; padding: 3rem 5%; color: #555; font-size: 0.9rem; border-top: 1px solid #1e1e2e; margin-top: 3rem; }
+/* Pricing */
+.pricing{padding:100px 0;background:var(--surface)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1040px;margin:0 auto}
+.plan{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px 32px;text-align:left;position:relative;transition:transform 0.3s,border-color 0.3s}
+.plan:hover{transform:translateY(-4px);border-color:rgba(108,92,231,0.3)}
+.plan.featured{border-color:var(--primary);background:linear-gradient(180deg,rgba(108,92,231,0.06) 0%,var(--card) 100%)}
+.plan.featured::before{content:"MOST POPULAR";position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--primary),#5a3fd1);color:#fff;padding:6px 20px;border-radius:20px;font-size:0.7rem;font-weight:700;letter-spacing:1px}
+.plan h3{color:#fff;font-size:1.3rem;margin-bottom:4px;font-weight:700}
+.plan .price{font-size:2.8rem;font-weight:800;color:#fff;margin:8px 0}
+.plan .price span{font-size:1rem;font-weight:400;color:var(--dim)}
+.plan .desc{color:var(--dim);margin-bottom:20px;font-size:0.95rem}
+.plan ul{list-style:none;margin-bottom:28px}
+.plan ul li{padding:6px 0;color:var(--muted);font-size:0.95rem;display:flex;align-items:center;gap:10px}
+.plan ul li::before{content:"\2713";color:var(--primary-light);font-weight:700;flex-shrink:0}
+.plan .btn{display:block;text-align:center;width:100%;padding:14px}
+.plan .btn-muted{background:var(--surface);border:1px solid var(--border);color:var(--text)}
+.plan .btn-muted:hover{border-color:var(--primary);background:rgba(108,92,231,0.05)}
 
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 2rem; }
-            .plan .price { font-size: 2rem; }
-        }
-    </style>
+/* FAQ */
+.faq{padding:100px 0}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item h4{color:#fff;cursor:pointer;font-weight:600;font-size:1.05rem}
+.faq-item p{color:var(--muted);margin-top:8px;font-size:0.95rem;line-height:1.7}
+
+/* Final CTA */
+.final-cta{padding:100px 0;text-align:center;background:radial-gradient(ellipse at center,rgba(108,92,231,0.08) 0%,transparent 60%)}
+.final-cta h2{font-size:2.5rem;font-weight:800;margin-bottom:16px}
+.final-cta p{color:var(--muted);margin-bottom:36px;font-size:1.1rem}
+
+/* Footer */
+footer{text-align:center;padding:40px 0;color:var(--dim);font-size:0.85rem;border-top:1px solid var(--border)}
+
+@media(max-width:768px){
+  .hero h1{font-size:2.2rem}
+  .hero p{font-size:1.05rem}
+  .plan .price{font-size:2.2rem}
+  .nav-links a:not(.cta-sm){display:none}
+  .section-title{font-size:1.8rem}
+  .final-cta h2{font-size:2rem}
+  .output-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){
+  .output-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 
-<nav>
-    <div class="logo">Repurpose<span>AI</span></div>
+<nav><div class="container">
+  <div class="logo">Repurpose<span>AI</span></div>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
     <a href="https://repurpose-ai-web-production.up.railway.app" class="cta-sm">Get Started</a>
-</nav>
+  </div>
+</div></nav>
 
-<section class="hero">
-    <h1>Turn One Piece of Content Into <span>13 Ready-to-Post Assets</span></h1>
-    <p>Upload a blog post, podcast transcript, or webinar recording. Our AI generates LinkedIn posts, Twitter threads, email newsletters, video scripts, and SEO articles in seconds.</p>
-    <a href="https://repurpose-ai-web-production.up.railway.app" class="cta">Start Repurposing</a>
-    <div class="formats">
-        <span class="tag">Blog Posts</span>
-        <span class="tag">Podcast Transcripts</span>
-        <span class="tag">Webinar Recordings</span>
-        <span class="tag">YouTube Scripts</span>
-        <span class="tag">Articles</span>
-    </div>
-</section>
+<section class="hero"><div class="container">
+  <div class="hero-badge">One input. Thirteen outputs. Every time.</div>
+  <h1>Turn One Piece of Content Into <span>13 Ready-to-Post Assets</span></h1>
+  <p>Upload a blog post, podcast transcript, or webinar recording. Our AI generates LinkedIn posts, Twitter threads, email newsletters, video scripts, and SEO articles in seconds.</p>
+  <a href="https://repurpose-ai-web-production.up.railway.app" class="btn">Start Repurposing Free</a>
+  <div class="formats">
+    <span class="tag">Blog Posts</span>
+    <span class="tag">Podcast Transcripts</span>
+    <span class="tag">Webinar Recordings</span>
+    <span class="tag">YouTube Scripts</span>
+    <span class="tag">Articles</span>
+  </div>
+</div></section>
 
-<section class="how">
-    <h2>How It Works</h2>
-    <div class="steps">
-        <div class="step">
-            <div class="num">1</div>
-            <h3>Upload Your Content</h3>
-            <p>Paste a blog post, transcript, or any long-form text. We handle the rest.</p>
-        </div>
-        <div class="step">
-            <div class="num">2</div>
-            <h3>AI Generates 13 Assets</h3>
-            <p>Our engine creates platform-optimized content for LinkedIn, X, email, TikTok, and search.</p>
-        </div>
-        <div class="step">
-            <div class="num">3</div>
-            <h3>Download & Publish</h3>
-            <p>Copy, tweak if needed, and post. Your entire content calendar filled in under 60 seconds.</p>
-        </div>
+<section class="how" id="how"><div class="container">
+  <div class="section-label reveal">How It Works</div>
+  <h2 class="section-title reveal">Three Steps. Sixty Seconds. Done.</h2>
+  <p class="section-sub reveal">Your entire content calendar filled in under a minute.</p>
+  <div class="steps">
+    <div class="step reveal reveal-delay-1">
+      <div class="num">1</div>
+      <h3>Upload Your Content</h3>
+      <p>Paste a blog post, transcript, or any long-form text. We handle the rest.</p>
     </div>
-</section>
+    <div class="step reveal reveal-delay-2">
+      <div class="num">2</div>
+      <h3>AI Generates 13 Assets</h3>
+      <p>Our engine creates platform-optimized content for LinkedIn, X, email, TikTok, and search.</p>
+    </div>
+    <div class="step reveal reveal-delay-3">
+      <div class="num">3</div>
+      <h3>Download &amp; Publish</h3>
+      <p>Copy, tweak if needed, and post. Your entire content calendar filled in under 60 seconds.</p>
+    </div>
+  </div>
+</div></section>
 
-<section class="output-section">
-    <h2>What You Get From Every Piece</h2>
-    <p class="sub">One input. Thirteen outputs. Every time.</p>
-    <div class="output-grid">
-        <div class="output-card">
-            <div class="count">3</div>
-            <h4>LinkedIn Posts</h4>
-            <p>Hook-driven, professional, engagement-optimized</p>
-        </div>
-        <div class="output-card">
-            <div class="count">5</div>
-            <h4>Twitter/X Threads</h4>
-            <p>Punchy threads with built-in viral hooks</p>
-        </div>
-        <div class="output-card">
-            <div class="count">1</div>
-            <h4>Email Newsletter</h4>
-            <p>Subject line + full body, ready to send</p>
-        </div>
-        <div class="output-card">
-            <div class="count">3</div>
-            <h4>Short Video Scripts</h4>
-            <p>Reels/TikTok/Shorts scripts with hooks + CTAs</p>
-        </div>
-        <div class="output-card">
-            <div class="count">1</div>
-            <h4>SEO Article</h4>
-            <p>1,500+ word article with headers and keywords</p>
-        </div>
+<section class="output-section"><div class="container">
+  <div class="section-label reveal">Output</div>
+  <h2 class="section-title reveal">What You Get From Every Piece</h2>
+  <p class="section-sub reveal">One input. Thirteen outputs. Every time.</p>
+  <div class="output-grid">
+    <div class="output-card reveal reveal-delay-1">
+      <div class="count">3</div>
+      <h4>LinkedIn Posts</h4>
+      <p>Hook-driven, professional, engagement-optimized</p>
     </div>
-</section>
+    <div class="output-card reveal reveal-delay-2">
+      <div class="count">5</div>
+      <h4>Twitter/X Threads</h4>
+      <p>Punchy threads with built-in viral hooks</p>
+    </div>
+    <div class="output-card reveal reveal-delay-3">
+      <div class="count">1</div>
+      <h4>Email Newsletter</h4>
+      <p>Subject line + full body, ready to send</p>
+    </div>
+    <div class="output-card reveal reveal-delay-4">
+      <div class="count">3</div>
+      <h4>Short Video Scripts</h4>
+      <p>Reels/TikTok/Shorts scripts with hooks + CTAs</p>
+    </div>
+    <div class="output-card reveal reveal-delay-5">
+      <div class="count">1</div>
+      <h4>SEO Article</h4>
+      <p>1,500+ word article with headers and keywords</p>
+    </div>
+  </div>
+</div></section>
 
-<section class="pricing" id="pricing">
-    <h2>Simple Pricing</h2>
-    <p class="sub">No contracts. Cancel anytime. Start with a free test run.</p>
-    <div class="plans">
-        <div class="plan">
-            <h3>Starter</h3>
-            <div class="price">$500<span>/mo</span></div>
-            <div class="desc">For creators getting started</div>
-            <ul>
-                <li>5 content pieces per month</li>
-                <li>13 outputs per piece (65 total)</li>
-                <li>All 5 format types</li>
-                <li>JSON export</li>
-                <li>Email support</li>
-            </ul>
-            <a href="https://repurpose-ai-web-production.up.railway.app" class="btn">Get Started</a>
-        </div>
-        <div class="plan featured">
-            <h3>Growth</h3>
-            <div class="price">$1,500<span>/mo</span></div>
-            <div class="desc">For teams scaling content</div>
-            <ul>
-                <li>20 content pieces per month</li>
-                <li>13 outputs per piece (260 total)</li>
-                <li>All 5 format types</li>
-                <li>Priority processing</li>
-                <li>Slack support</li>
-                <li>Custom brand voice</li>
-            </ul>
-            <a href="https://repurpose-ai-web-production.up.railway.app" class="btn">Get Started</a>
-        </div>
-        <div class="plan">
-            <h3>Scale</h3>
-            <div class="price">$3,000<span>/mo</span></div>
-            <div class="desc">Unlimited repurposing</div>
-            <ul>
-                <li>Unlimited content pieces</li>
-                <li>13 outputs per piece</li>
-                <li>All 5 format types</li>
-                <li>API access</li>
-                <li>Dedicated account manager</li>
-                <li>Custom integrations</li>
-            </ul>
-            <a href="https://repurpose-ai-web-production.up.railway.app" class="btn">Get Started</a>
-        </div>
+<section class="pricing" id="pricing"><div class="container">
+  <div class="section-label reveal">Pricing</div>
+  <h2 class="section-title reveal">Simple Pricing</h2>
+  <p class="section-sub reveal">No contracts. Cancel anytime. Start with a free test run.</p>
+  <div class="plans">
+    <div class="plan reveal reveal-delay-1">
+      <h3>Starter</h3>
+      <div class="price">$500<span>/mo</span></div>
+      <div class="desc">For creators getting started</div>
+      <ul>
+        <li>5 content pieces per month</li>
+        <li>13 outputs per piece (65 total)</li>
+        <li>All 5 format types</li>
+        <li>JSON export</li>
+        <li>Email support</li>
+      </ul>
+      <a href="https://repurpose-ai-web-production.up.railway.app" class="btn btn-muted">Get Started</a>
     </div>
-</section>
+    <div class="plan featured reveal reveal-delay-2">
+      <h3>Growth</h3>
+      <div class="price">$1,500<span>/mo</span></div>
+      <div class="desc">For teams scaling content</div>
+      <ul>
+        <li>20 content pieces per month</li>
+        <li>13 outputs per piece (260 total)</li>
+        <li>All 5 format types</li>
+        <li>Priority processing</li>
+        <li>Slack support</li>
+        <li>Custom brand voice</li>
+      </ul>
+      <a href="https://repurpose-ai-web-production.up.railway.app" class="btn">Get Started</a>
+    </div>
+    <div class="plan reveal reveal-delay-3">
+      <h3>Scale</h3>
+      <div class="price">$3,000<span>/mo</span></div>
+      <div class="desc">Unlimited repurposing</div>
+      <ul>
+        <li>Unlimited content pieces</li>
+        <li>13 outputs per piece</li>
+        <li>All 5 format types</li>
+        <li>API access</li>
+        <li>Dedicated account manager</li>
+        <li>Custom integrations</li>
+      </ul>
+      <a href="https://repurpose-ai-web-production.up.railway.app" class="btn btn-muted">Contact Sales</a>
+    </div>
+  </div>
+</div></section>
 
-<section class="faq">
-    <h2>FAQ</h2>
-    <div class="faq-item">
-        <h4>What kind of content can I upload?</h4>
-        <p>Any long-form text: blog posts, podcast transcripts, webinar notes, YouTube scripts, articles, whitepapers, or even meeting notes.</p>
+<section class="faq"><div class="container">
+  <div class="section-label reveal">FAQ</div>
+  <h2 class="section-title reveal">Frequently Asked Questions</h2>
+  <div style="max-width:700px;margin:48px auto 0">
+    <div class="faq-item reveal reveal-delay-1">
+      <h4>What kind of content can I upload?</h4>
+      <p>Any long-form text: blog posts, podcast transcripts, webinar notes, YouTube scripts, articles, whitepapers, or even meeting notes.</p>
     </div>
-    <div class="faq-item">
-        <h4>How fast is the turnaround?</h4>
-        <p>Under 60 seconds for all 13 assets. Our AI processes everything in parallel.</p>
+    <div class="faq-item reveal reveal-delay-2">
+      <h4>How fast is the turnaround?</h4>
+      <p>Under 60 seconds for all 13 assets. Our AI processes everything in parallel.</p>
     </div>
-    <div class="faq-item">
-        <h4>Can I customize the brand voice?</h4>
-        <p>Yes. Growth and Scale plans include custom brand voice training so outputs match your tone.</p>
+    <div class="faq-item reveal reveal-delay-3">
+      <h4>Can I customize the brand voice?</h4>
+      <p>Yes. Growth and Scale plans include custom brand voice training so outputs match your tone.</p>
     </div>
-    <div class="faq-item">
-        <h4>Do I own the content?</h4>
-        <p>100%. Everything generated is yours to use however you want, no attribution required.</p>
+    <div class="faq-item reveal reveal-delay-4">
+      <h4>Do I own the content?</h4>
+      <p>100%. Everything generated is yours to use however you want, no attribution required.</p>
     </div>
-</section>
+  </div>
+</div></section>
 
-<footer>
-    &copy; 2026 RepurposeAI. All rights reserved.
-</footer>
+<section class="final-cta"><div class="container">
+  <h2 class="reveal">Stop Creating Content the Hard Way</h2>
+  <p class="reveal">One upload. Thirteen assets. Every platform covered.</p>
+  <a href="https://repurpose-ai-web-production.up.railway.app" class="btn reveal">Start Repurposing Free</a>
+</div></section>
 
+<footer><div class="container">&copy; 2026 RepurposeAI. All rights reserved.</div></footer>
+
+<script>
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
 </body>
 </html>
