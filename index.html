@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RepurposeAI - Turn One Piece Into 13 | AI Content Repurposing</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0f; color: #e0e0e8; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; max-width: 1200px; margin: 0 auto; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #fff; }
+        .logo span { color: #6c5ce7; }
+        nav a.cta-sm { background: #6c5ce7; color: #fff; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600; transition: background 0.2s; }
+        nav a.cta-sm:hover { background: #5a4bd1; }
+
+        .hero { text-align: center; padding: 6rem 5% 4rem; max-width: 900px; margin: 0 auto; }
+        .hero h1 { font-size: 3.2rem; font-weight: 800; line-height: 1.15; color: #fff; margin-bottom: 1.2rem; }
+        .hero h1 span { background: linear-gradient(135deg, #6c5ce7, #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.25rem; color: #9a9ab0; max-width: 650px; margin: 0 auto 2rem; }
+        .cta { display: inline-block; background: #6c5ce7; color: #fff; padding: 1rem 2.5rem; border-radius: 10px; font-size: 1.1rem; font-weight: 700; transition: transform 0.2s, background 0.2s; }
+        .cta:hover { background: #5a4bd1; transform: translateY(-2px); }
+
+        .formats { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
+        .formats .tag { background: #16161f; border: 1px solid #2a2a3d; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; color: #a29bfe; }
+
+        .how { padding: 5rem 5%; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .how h2 { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 3rem; }
+        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .step { background: #12121b; border: 1px solid #1e1e2e; border-radius: 14px; padding: 2rem; text-align: left; }
+        .step .num { display: inline-block; background: #6c5ce7; color: #fff; width: 36px; height: 36px; border-radius: 50%; text-align: center; line-height: 36px; font-weight: 700; margin-bottom: 1rem; }
+        .step h3 { color: #fff; margin-bottom: 0.5rem; }
+        .step p { color: #8888a0; font-size: 0.95rem; }
+
+        .output-section { padding: 4rem 5%; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .output-section h2 { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 1rem; }
+        .output-section .sub { color: #9a9ab0; margin-bottom: 2.5rem; font-size: 1.1rem; }
+        .output-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; }
+        .output-card { background: #12121b; border: 1px solid #1e1e2e; border-radius: 12px; padding: 1.5rem; text-align: left; }
+        .output-card .count { font-size: 2rem; font-weight: 800; color: #6c5ce7; }
+        .output-card h4 { color: #fff; margin: 0.3rem 0; }
+        .output-card p { color: #8888a0; font-size: 0.85rem; }
+
+        .pricing { padding: 5rem 5%; max-width: 1100px; margin: 0 auto; text-align: center; }
+        .pricing h2 { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+        .pricing .sub { color: #9a9ab0; margin-bottom: 3rem; font-size: 1.1rem; }
+        .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .plan { background: #12121b; border: 1px solid #1e1e2e; border-radius: 16px; padding: 2.5rem 2rem; text-align: left; position: relative; transition: border-color 0.2s; }
+        .plan:hover { border-color: #6c5ce7; }
+        .plan.featured { border-color: #6c5ce7; }
+        .plan.featured::before { content: "MOST POPULAR"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #6c5ce7; color: #fff; padding: 0.25rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+        .plan h3 { color: #fff; font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .plan .price { font-size: 2.5rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem; }
+        .plan .price span { font-size: 1rem; font-weight: 400; color: #8888a0; }
+        .plan .desc { color: #8888a0; margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .plan ul { list-style: none; margin-bottom: 2rem; }
+        .plan ul li { padding: 0.4rem 0; color: #c0c0d0; font-size: 0.95rem; }
+        .plan ul li::before { content: "\2713"; color: #6c5ce7; margin-right: 0.6rem; font-weight: 700; }
+        .plan .btn { display: block; text-align: center; background: #1e1e2e; color: #fff; padding: 0.85rem; border-radius: 10px; font-weight: 600; transition: background 0.2s; }
+        .plan .btn:hover, .plan.featured .btn { background: #6c5ce7; }
+
+        .faq { padding: 4rem 5%; max-width: 750px; margin: 0 auto; }
+        .faq h2 { text-align: center; font-size: 2rem; color: #fff; margin-bottom: 2rem; }
+        .faq-item { border-bottom: 1px solid #1e1e2e; padding: 1.2rem 0; }
+        .faq-item h4 { color: #fff; cursor: pointer; }
+        .faq-item p { color: #8888a0; margin-top: 0.5rem; font-size: 0.95rem; }
+
+        footer { text-align: center; padding: 3rem 5%; color: #555; font-size: 0.9rem; border-top: 1px solid #1e1e2e; margin-top: 3rem; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .plan .price { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">Repurpose<span>AI</span></div>
+    <a href="https://repurpose-ai-web-production.up.railway.app" class="cta-sm">Get Started</a>
+</nav>
+
+<section class="hero">
+    <h1>Turn One Piece of Content Into <span>13 Ready-to-Post Assets</span></h1>
+    <p>Upload a blog post, podcast transcript, or webinar recording. Our AI generates LinkedIn posts, Twitter threads, email newsletters, video scripts, and SEO articles in seconds.</p>
+    <a href="https://repurpose-ai-web-production.up.railway.app" class="cta">Start Repurposing</a>
+    <div class="formats">
+        <span class="tag">Blog Posts</span>
+        <span class="tag">Podcast Transcripts</span>
+        <span class="tag">Webinar Recordings</span>
+        <span class="tag">YouTube Scripts</span>
+        <span class="tag">Articles</span>
+    </div>
+</section>
+
+<section class="how">
+    <h2>How It Works</h2>
+    <div class="steps">
+        <div class="step">
+            <div class="num">1</div>
+            <h3>Upload Your Content</h3>
+            <p>Paste a blog post, transcript, or any long-form text. We handle the rest.</p>
+        </div>
+        <div class="step">
+            <div class="num">2</div>
+            <h3>AI Generates 13 Assets</h3>
+            <p>Our engine creates platform-optimized content for LinkedIn, X, email, TikTok, and search.</p>
+        </div>
+        <div class="step">
+            <div class="num">3</div>
+            <h3>Download & Publish</h3>
+            <p>Copy, tweak if needed, and post. Your entire content calendar filled in under 60 seconds.</p>
+        </div>
+    </div>
+</section>
+
+<section class="output-section">
+    <h2>What You Get From Every Piece</h2>
+    <p class="sub">One input. Thirteen outputs. Every time.</p>
+    <div class="output-grid">
+        <div class="output-card">
+            <div class="count">3</div>
+            <h4>LinkedIn Posts</h4>
+            <p>Hook-driven, professional, engagement-optimized</p>
+        </div>
+        <div class="output-card">
+            <div class="count">5</div>
+            <h4>Twitter/X Threads</h4>
+            <p>Punchy threads with built-in viral hooks</p>
+        </div>
+        <div class="output-card">
+            <div class="count">1</div>
+            <h4>Email Newsletter</h4>
+            <p>Subject line + full body, ready to send</p>
+        </div>
+        <div class="output-card">
+            <div class="count">3</div>
+            <h4>Short Video Scripts</h4>
+            <p>Reels/TikTok/Shorts scripts with hooks + CTAs</p>
+        </div>
+        <div class="output-card">
+            <div class="count">1</div>
+            <h4>SEO Article</h4>
+            <p>1,500+ word article with headers and keywords</p>
+        </div>
+    </div>
+</section>
+
+<section class="pricing" id="pricing">
+    <h2>Simple Pricing</h2>
+    <p class="sub">No contracts. Cancel anytime. Start with a free test run.</p>
+    <div class="plans">
+        <div class="plan">
+            <h3>Starter</h3>
+            <div class="price">$500<span>/mo</span></div>
+            <div class="desc">For creators getting started</div>
+            <ul>
+                <li>5 content pieces per month</li>
+                <li>13 outputs per piece (65 total)</li>
+                <li>All 5 format types</li>
+                <li>JSON export</li>
+                <li>Email support</li>
+            </ul>
+            <a href="https://repurpose-ai-web-production.up.railway.app" class="btn">Get Started</a>
+        </div>
+        <div class="plan featured">
+            <h3>Growth</h3>
+            <div class="price">$1,500<span>/mo</span></div>
+            <div class="desc">For teams scaling content</div>
+            <ul>
+                <li>20 content pieces per month</li>
+                <li>13 outputs per piece (260 total)</li>
+                <li>All 5 format types</li>
+                <li>Priority processing</li>
+                <li>Slack support</li>
+                <li>Custom brand voice</li>
+            </ul>
+            <a href="https://repurpose-ai-web-production.up.railway.app" class="btn">Get Started</a>
+        </div>
+        <div class="plan">
+            <h3>Scale</h3>
+            <div class="price">$3,000<span>/mo</span></div>
+            <div class="desc">Unlimited repurposing</div>
+            <ul>
+                <li>Unlimited content pieces</li>
+                <li>13 outputs per piece</li>
+                <li>All 5 format types</li>
+                <li>API access</li>
+                <li>Dedicated account manager</li>
+                <li>Custom integrations</li>
+            </ul>
+            <a href="https://repurpose-ai-web-production.up.railway.app" class="btn">Get Started</a>
+        </div>
+    </div>
+</section>
+
+<section class="faq">
+    <h2>FAQ</h2>
+    <div class="faq-item">
+        <h4>What kind of content can I upload?</h4>
+        <p>Any long-form text: blog posts, podcast transcripts, webinar notes, YouTube scripts, articles, whitepapers, or even meeting notes.</p>
+    </div>
+    <div class="faq-item">
+        <h4>How fast is the turnaround?</h4>
+        <p>Under 60 seconds for all 13 assets. Our AI processes everything in parallel.</p>
+    </div>
+    <div class="faq-item">
+        <h4>Can I customize the brand voice?</h4>
+        <p>Yes. Growth and Scale plans include custom brand voice training so outputs match your tone.</p>
+    </div>
+    <div class="faq-item">
+        <h4>Do I own the content?</h4>
+        <p>100%. Everything generated is yours to use however you want, no attribution required.</p>
+    </div>
+</section>
+
+<footer>
+    &copy; 2026 RepurposeAI. All rights reserved.
+</footer>
+
+</body>
+</html>
